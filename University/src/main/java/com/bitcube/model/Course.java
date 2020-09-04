@@ -6,7 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
@@ -26,6 +26,6 @@ public class Course {
 	
 	private int courseDurationInMonths;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "courses")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Degree degree;
 }

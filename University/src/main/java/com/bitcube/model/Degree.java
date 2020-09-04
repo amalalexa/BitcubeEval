@@ -10,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
@@ -28,11 +28,11 @@ public class Degree {
 	private String degreeName;
 	private int degreeDurationInYears;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "degree")
 	@JoinColumn(name="course_id")
 	private List<Course> courses;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "degrees")
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Lecturer lecturer;
 	
 }

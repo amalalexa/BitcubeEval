@@ -29,7 +29,7 @@ public class Lecturer {
 	private String emailId;
 	private String dateOfBirth;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "lecturer")
 	@JoinColumn(name="degree_id")
 	private List<Degree> degrees;
 	
