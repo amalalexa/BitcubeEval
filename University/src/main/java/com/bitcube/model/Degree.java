@@ -19,7 +19,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@SequenceGenerator(name="degreeIdSeq", initialValue=1, allocationSize=2)
+@SequenceGenerator(name="degreeIdSeq", initialValue=1, allocationSize=1)
 public class Degree {
 	
 	@Id

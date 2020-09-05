@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@SequenceGenerator(name="studentIdSeq", initialValue=1, allocationSize=2)
+@SequenceGenerator(name="studentIdSeq", initialValue=1, allocationSize=1)
 public class Student {
 	
 	@Id
