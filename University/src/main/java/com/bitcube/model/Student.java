@@ -3,6 +3,7 @@ package com.bitcube.model;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,12 +24,22 @@ public class Student {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="studentIdSeq")
+	@Column(name="student_id")
 	private String studentId;
+	
 	private String forenames;
 	private String surname;
+	
+	@Column(name="first_name")
 	private String firstName;
+	
+	@Column(name="full_name")
 	private String fullName;
+	
+	@Column(name="email_id")
 	private String emailId;
+	
+	@Column(name="date_of_birth")
 	private Date dateOfBirth;
 	
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

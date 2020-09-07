@@ -3,6 +3,7 @@ package com.bitcube.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,8 +25,13 @@ public class Degree {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="degreeIdSeq")
+	@Column(name="degree_id")
 	private long degreeId;
+	
+	@Column(name="degree_name")
 	private String degreeName;
+	
+	@Column(name="degree_duration_in_years")
 	private int degreeDurationInYears;
 	
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "degree")
