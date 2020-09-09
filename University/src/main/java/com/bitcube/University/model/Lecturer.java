@@ -4,10 +4,11 @@ package com.bitcube.University.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,13 +17,15 @@ import lombok.Setter;
 @Table(name="lecturer")
 @Getter
 @Setter
-@SequenceGenerator(name="lecturerIdSeq", initialValue=1, allocationSize=1)
 public class Lecturer {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="lecturerIdSeq")
+    @GeneratedValue(generator = "lecturerId-generator")
+    @GenericGenerator(name = "lecturerId-generator", 
+      				  parameters = @Parameter(name = "prefix", value = "L"), 
+      				  strategy = "com.bitcube.University.model.GenerateId")
 	@Column(name="lecturer_id")
-	private long lecturerId;
+	private String lecturerId;
 	
 	private String forenames;
 	private String surname;

@@ -4,12 +4,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,22 +19,21 @@ import lombok.Setter;
 @Table(name="degree")
 @Getter
 @Setter
-@SequenceGenerator(name="degreeIdSeq", initialValue=1, allocationSize=1)
 public class Degree {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="degreeIdSeq")
+    @GeneratedValue(generator = "degreeId-generator")
+    @GenericGenerator(name = "degreeId-generator", 
+      				  parameters = @Parameter(name = "prefix", value = "D"), 
+      				  strategy = "com.bitcube.University.model.GenerateId")
 	@Column(name="degree_id")
-	private int degreeId;
+	private String degreeId;
 	
 	@Column(name="degree_name")
 	private String degreeName;
 	
 	@Column(name="degree_duration_in_years")
 	private int degreeDurationInYears;
-	
-//	@Column(name="lecturer_id")
-//	private Lecturer lecturerId;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "lecturer_id", referencedColumnName = "lecturer_id")

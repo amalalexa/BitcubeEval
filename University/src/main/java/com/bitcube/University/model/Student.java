@@ -6,12 +6,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,11 +21,13 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="student")
-@SequenceGenerator(name="studentIdSeq", initialValue=1, allocationSize=1)
 public class Student {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="studentIdSeq")
+    @GeneratedValue(generator = "studentId-generator")
+    @GenericGenerator(name = "studentId-generator", 
+      				  parameters = @Parameter(name = "prefix", value = "S"), 
+      				  strategy = "com.bitcube.University.model.GenerateId")
 	@Column(name="student_id")
 	private String studentId;
 	
@@ -42,10 +45,7 @@ public class Student {
 	
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
-	
-//	@Column(name="degree_id")
-//	private Degree degreeId;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
 	private Degree degreeId;

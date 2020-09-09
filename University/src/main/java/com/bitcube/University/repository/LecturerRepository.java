@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.bitcube.University.model.Lecturer;
 
 @Repository
-public interface LecturerRepository extends JpaRepository<Lecturer, Integer> {
+public interface LecturerRepository extends JpaRepository<Lecturer, String>, ParentRepository {
 	
-	@Query(value="SELECT * FROM lecturer l", nativeQuery=true)
-	List<Lecturer> findAllRecords();
+	@Query(value="SELECT l.lecturer_id FROM lecturer l", nativeQuery=true)
+	List<String> findAllId();
 }
