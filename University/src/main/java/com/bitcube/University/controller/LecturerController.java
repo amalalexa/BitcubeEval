@@ -2,8 +2,8 @@ package com.bitcube.University.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +18,7 @@ public class LecturerController {
 	private LecturerService lecturerService;
 	
 	@GetMapping("/savestudent")
-	public ResponseEntity<?> saveStudent()
+	public ResponseEntity<String> saveStudent()
 	{
 		try
 		{
@@ -29,6 +29,18 @@ public class LecturerController {
 		{
 			return ResponseEntity.status(500).body(e.getMessage());
 		}
+	}
+	
+	@GetMapping("/students")
+	public ResponseEntity<?> listOfStudents(@RequestHeader("lecturerId") String lecturerId ){
+		
+		try {
+			return ResponseEntity.ok().body(lecturerService.listOfStudents(lecturerId));
+		}
+		catch(Exception e) {
+			return ResponseEntity.status(500).body(e.getMessage());
+		}
+		
 	}
 
 }

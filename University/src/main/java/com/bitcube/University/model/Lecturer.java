@@ -1,10 +1,15 @@
-package com.bitcube.University.model;
+	package com.bitcube.University.model;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -41,6 +46,9 @@ public class Lecturer {
 	
 	@Column(name="date_of_birth")
 	private String dateOfBirth;
+	
+	@OneToMany(mappedBy="lecturer", cascade = CascadeType.ALL)
+    Set<Degree> setOfDegrees = new HashSet<Degree>();
 	
 	public void setFirstName() {
 		this.firstName = this.forenames.split(" ")[0];

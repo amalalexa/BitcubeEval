@@ -36,7 +36,7 @@ public class Degree {
 	private int degreeDurationInYears;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "lecturer_id", referencedColumnName = "lecturer_id")
-	private Lecturer lecturerId;
+	@JoinColumn(name = "lecturer_id")
+	private Lecturer lecturer;
 	
 }
