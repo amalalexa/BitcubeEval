@@ -16,7 +16,8 @@ public interface StudentRepository extends JpaRepository<Student, String>, Paren
 	@Query(value="SELECT s.student_id FROM student s", nativeQuery=true)
 	List<String> findAllId();
 	
-	@Query(value = "SELECT s.student_id, s.full_name from student s where s.degree_id = :degree_id",nativeQuery=true)
+	
+	@Query("SELECT new com.bitcube.University.dao.StudentDetailsDao(s.studentId,s.fullName) FROM Student s where s.degree.degreeId = :degree_id")
 	List<StudentDetailsDao> findSudentDetails(@Param("degree_id") String degreeId);
 	
 }

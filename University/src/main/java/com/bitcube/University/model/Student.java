@@ -48,7 +48,7 @@ public class Student {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
-	private Degree degreeId;
+	private Degree degree;
 	
 	public void setFirstName() {
 		this.firstName = this.forenames.split(" ")[0];
