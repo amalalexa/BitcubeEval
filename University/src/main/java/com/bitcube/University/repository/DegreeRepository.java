@@ -22,4 +22,7 @@ public interface DegreeRepository extends JpaRepository<Degree, String>, ParentR
 	@Query(value="SELECT * FROM degree d where d.lecturer_id = :lecturer_id", nativeQuery=true)
 	List<Degree> findDegreeDetails(@Param("lecturer_id") String lecturer_id);
 	
+	@Query(value="SELECT * FROM degree d where d.degree_id = :degree_id",nativeQuery=true)
+	Degree findDegreeName(@Param("degree_id") String degreeId);
+	
 }

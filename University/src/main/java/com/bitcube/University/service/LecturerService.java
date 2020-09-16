@@ -1,5 +1,6 @@
 package com.bitcube.University.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import com.bitcube.University.model.Student;
 import com.bitcube.University.repository.CourseRepository;
 import com.bitcube.University.repository.DegreeRepository;
 import com.bitcube.University.repository.StudentRepository;
-import com.bitcube.University.util.BeanUtil;
+import com.bitcube.University.view.InputStudentDetails;
 import com.bitcube.University.view.OutputCourseDetailsView;
 import com.bitcube.University.view.OutputDegreeDetailsView;
 import com.bitcube.University.view.OutputStudentDetailsView;
@@ -34,26 +35,24 @@ public class LecturerService {
 	@Autowired
 	private CourseRepository courseRepository;
 	
-	public String saveStudentDetails() {
+	public String saveStudentDetails(InputStudentDetails inputStudentDetails) {
 		
 		Student student=new Student();
 		
-		long millis=System.currentTimeMillis();  
-        java.sql.Date date=new java.sql.Date(millis);  
+		Date dateOfBirth=Date.valueOf(inputStudentDetails.getDateOfBirth());
+ 
         
-		student.setDateOfBirth(date);
-		student.setDegree(null);
-		student.setEmailId("amal@gmail.com");
-		student.setForenames("amal alex");
-		student.setSurname("arackanatil");
+		student.setDateOfBirth(dateOfBirth);
+		student.setDegree(degreeRepository.findDegreeName(inputStudentDetails.getDegreeId()));
+		student.setEmailId(inputStudentDetails.getEmailId());
+		student.setForenames(inputStudentDetails.getForename());
+		student.setSurname(inputStudentDetails.getSurname());
 		student.setFullName();
 		student.setFirstName();
 		
-		System.out.println(student.getFullName());
-		System.out.println(student.getFirstName());
 		studentRepository.save(student);
 		
-		return "Perfect";
+		return "Student Saved Successfully !!";
 	}
 	
 	public List<OutputStudentDetailsView> listOfStudents(String lecturerId) throws LecturerNoDegreeException{
