@@ -36,7 +36,7 @@ public class Course {
 	@Column(name="course_duration_in_months")
 	private int courseDurationInMonths;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name="degree_id", referencedColumnName = "degree_id")
 	private Degree degreeId;
 	

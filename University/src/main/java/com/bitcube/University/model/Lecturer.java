@@ -47,7 +47,7 @@ public class Lecturer {
 	@Column(name="date_of_birth")
 	private String dateOfBirth;
 	
-	@OneToMany(mappedBy="lecturer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="lecturer")
     Set<Degree> setOfDegrees = new HashSet<Degree>();
 	
 	public void setFirstName() {

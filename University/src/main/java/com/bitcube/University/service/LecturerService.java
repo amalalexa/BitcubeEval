@@ -55,7 +55,18 @@ public class LecturerService {
 		return "Student Saved Successfully !!";
 	}
 	
-	public List<OutputStudentDetailsView> listOfStudents(String lecturerId) throws LecturerNoDegreeException{
+	public String removeStudentDetails(String studentId) {
+		try
+		{
+			studentRepository.deleteById(studentId);
+		}catch(IllegalArgumentException e) {
+			System.out.println("Illegal Argument Exception");
+		}
+		
+		return "Student Deleted Successfully";
+	}
+	
+	public List<OutputStudentDetailsView> listOfStudents(String lecturerId,String degreeId) throws LecturerNoDegreeException{
 		
 		List<OutputStudentDetailsView> studentDetails=new ArrayList<OutputStudentDetailsView>();
 		List<DegreeDetailsDao> listOfDegreeId = degreeRepository.findDegreeIdBasedOnLecturerId(lecturerId);
@@ -68,19 +79,22 @@ public class LecturerService {
 
 		listOfDegreeId.stream().forEach(degreeObject -> {
 			
-			List<StudentDetailsDao> temp = studentRepository.findSudentDetails(degreeObject.getDegreeId());
-			OutputStudentDetailsView studentDetailsView;
-			
-			for(StudentDetailsDao studentObject:temp){
+			if(degreeObject.getDegreeId().equals(degreeId))
+			{
+				List<StudentDetailsDao> temp = studentRepository.findSudentDetails(degreeObject.getDegreeId());
+				OutputStudentDetailsView studentDetailsView;
 				
-				studentDetailsView=new OutputStudentDetailsView();
-				
-				studentDetailsView.setStudentId(studentObject.getStudentId());
-				studentDetailsView.setStudentName(studentObject.getFullName());
-				studentDetailsView.setDegreeName(degreeObject.getDegreeName());
-				
-				studentDetails.add(studentDetailsView);
-			}		
+				for(StudentDetailsDao studentObject:temp){
+					
+					studentDetailsView=new OutputStudentDetailsView();
+					
+					studentDetailsView.setStudentId(studentObject.getStudentId());
+					studentDetailsView.setStudentName(studentObject.getFullName());
+					studentDetailsView.setDegreeName(degreeObject.getDegreeName());
+					
+					studentDetails.add(studentDetailsView);
+				}		
+			}
 		});
 		return studentDetails;
 	}
@@ -95,6 +109,8 @@ public class LecturerService {
 		listOfDegrees.stream().forEach(object -> {
 			
 			OutputDegreeDetailsView temp=new OutputDegreeDetailsView();
+			
+			temp.setNumberOfStudents(studentRepository.findNumberOfStudents(object.getDegreeId()));
 			
 			temp.setDegreeId(object.getDegreeId());
 			temp.setDegreeName(object.getDegreeName());
@@ -124,4 +140,6 @@ public class LecturerService {
 		return courseDetails;
 		
 	}
+	
+	
 }

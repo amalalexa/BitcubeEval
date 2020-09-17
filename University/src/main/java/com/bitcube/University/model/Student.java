@@ -46,7 +46,7 @@ public class Student {
 	@Column(name="date_of_birth")
 	private Date dateOfBirth;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name = "degree_id", referencedColumnName = "degree_id")
 	private Degree degree;
 	

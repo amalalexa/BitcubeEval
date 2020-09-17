@@ -10,6 +10,7 @@ public class OutputDegreeDetailsView {
 	private String degreeId;
 	private String degreeName;
 	private int degreeDurationInYears;
+	private int numberOfStudents;
 	
 
 }
